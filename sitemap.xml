@@ -67,20 +67,6 @@
 
   
   <url>
-    <loc>http://bmwhale.github.io/tags/QT/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://bmwhale.github.io/tags/Raspberry-Pi/</loc>
-    <lastmod>2020-11-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://bmwhale.github.io/tags/hexo/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
@@ -101,17 +87,31 @@
     <priority>0.6</priority>
   </url>
   
-
-  
   <url>
-    <loc>http://bmwhale.github.io/categories/Graphic/</loc>
+    <loc>http://bmwhale.github.io/tags/QT/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
+    <loc>http://bmwhale.github.io/tags/Raspberry-Pi/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
     <loc>http://bmwhale.github.io/categories/hexo/</loc>
+    <lastmod>2020-11-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://bmwhale.github.io/categories/Graphic/</loc>
     <lastmod>2020-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
