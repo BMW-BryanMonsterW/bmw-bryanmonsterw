@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>GitLab CI/CD 小試身手 part I</title>
+    <url>/2020/11/19/GitLab-CI-CD-%E5%B0%8F%E8%A9%A6%E8%BA%AB%E6%89%8B-part-I/</url>
+    <content><![CDATA[<p>如果你沒有架設Jenkins，可以先來試試gitlab的CI/CD autobuild.<br><br>你一定會愛上它<br></p>
+<p>從下面的可以看到，每筆commit編譯的狀況，當然好的行慣是local編譯成功在上傳，<br><br>但如果有很多branch跟編譯的組態檔需要確認，GitLab CI/CD就是很好的工具。<br><a href="https://imgur.com/NBiNBlc"><img src="https://i.imgur.com/NBiNBlc.png" title="source: imgur.com" width="80%" height="80%"/></a></p>
+<a id="more"></a>
+<p>從專案（Simple-Code) -&gt; 點選  CI/CD Configuration<br><a href="https://imgur.com/leMiZYp"><img src="https://i.imgur.com/leMiZYp.png" title="source: imgur.com" width="80%" height="50%" /></a></p>
+<p>建立config檔案：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$vi &lt;project&gt;&#x2F;.gitlab-ci.yml</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">stages:</span><br><span class="line">  - build</span><br><span class="line"></span><br><span class="line">stg-build:</span><br><span class="line">  stage: build</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br><span class="line">  script:</span><br><span class="line">    - echo <span class="string">&quot;stg build&quot;</span></span><br><span class="line">    - cd helloworld</span><br><span class="line">    - make</span><br><span class="line">    - ./hello</span><br></pre></td></tr></table></figure>
+
+<p>觀察編譯過程：<br><a href="https://imgur.com/gugplqP"><img src="https://i.imgur.com/gugplqP.png" title="source: imgur.com" /></a></p>
+<p>大致上就是這使用，如果需要更進階可以參考底下連結。</p>
+<p>更詳細內容：<br><br><a href="https://ithelp.ithome.com.tw/articles/10219427">iT邦幫忙 GitLab: 建立第一條 CI/CD Pipeline</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>QT5 run on Raspberry Pi</title>
+    <url>/2020/06/15/QT5-run-on-Raspberry-Pi/</url>
+    <content><![CDATA[<p>Raspberry pi Run QT5 Example</p>
+<a id="more"></a>
+
+<h3 id="rpi3-qt5-、-rpi3差異"><a href="#rpi3-qt5-、-rpi3差異" class="headerlink" title="rpi3 qt5 、 rpi3差異"></a>rpi3 qt5 、 rpi3差異</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">buildroot/configs (master)$ diff raspberrypi3_defconfig raspberrypi3_qt5we_defconfig </span><br><span class="line"><span class="number">4</span>a5</span><br><span class="line">&gt; BR2_TOOLCHAIN_BUILDROOT_GLIBC=y</span><br><span class="line"><span class="number">22</span>a24,<span class="number">32</span></span><br><span class="line">&gt; # Build Qt5 WebEngine</span><br><span class="line">&gt; BR2_PACKAGE_LIBERATION=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5BASE_EXAMPLES=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5BASE_GIF=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5BASE_JPEG=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5BASE_PNG=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5WEBENGINE=y</span><br><span class="line">&gt; BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS=y</span><br><span class="line"><span class="number">23</span>a34,<span class="number">36</span></span><br><span class="line">&gt; BR2_PACKAGE_RPI_USERLAND=y</span><br><span class="line">&gt; BR2_PACKAGE_CA_CERTIFICATES=y</span><br><span class="line">&gt; BR2_PACKAGE_NTP=y</span><br><span class="line"><span class="number">33</span>c46</span><br><span class="line">&lt; BR2_TARGET_ROOTFS_EXT2_SIZE=<span class="string">&quot;120M&quot;</span></span><br><span class="line">---</span><br><span class="line">&gt; BR2_TARGET_ROOTFS_EXT2_SIZE=<span class="string">&quot;360M&quot;</span></span><br><span class="line"><span class="number">34</span>a48</span><br><span class="line">&gt; BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_EUDEV=y</span><br><span class="line"><span class="number">37</span>c51</span><br><span class="line">&lt; BR2_ROOTFS_POST_SCRIPT_ARGS=<span class="string">&quot;--add-pi3-miniuart-bt-overlay&quot;</span></span><br><span class="line">---</span><br><span class="line">&gt; BR2_ROOTFS_POST_SCRIPT_ARGS=<span class="string">&quot;--add-pi3-miniuart-bt-overlay --gpu_mem_1024=200&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="編譯"><a href="#編譯" class="headerlink" title="編譯"></a>編譯</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$git clone https:&#x2F;&#x2F;github.com&#x2F;buildroot&#x2F;buildroot.git</span><br><span class="line">$make raspberrypi3_qt5we_defconfig</span><br><span class="line">$make j$(nproc)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#qml -v</span><br><span class="line">QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to &#39;&#x2F;tmp&#x2F;runtime-root&#39;</span><br><span class="line">qml binary version 1.1</span><br><span class="line">built with Qt version 5.12.4</span><br></pre></td></tr></table></figure>
+<h3 id="執行結果"><a href="#執行結果" class="headerlink" title="執行結果:"></a>執行結果:</h3><p>example location:</p>
+<ol>
+<li> /usr/lib/qt/examples/widgets/widgets </li>
+<li> /usr/lib/qt/examples/gui
+</ol> 
+<center>analogclock</center>
+<a href="https://imgur.com/ihqt3gy"><img src="https://i.imgur.com/ihqt3gy.jpg" title="source: imgur.com" style="width: 25vw; height: 350px;"/></a>
+<center>digitalclock</center>
+<a href="https://imgur.com/OxPLLgy"><img src="https://i.imgur.com/OxPLLgy.jpg" title="source: imgur.com" style="width: 15vw; height: 150px;" /></a>
+
+<p>NOTE:</p>
+<ol>
+<li>BR2_TARGET_ROOTFS_EXT2_SIZE=”360M” set to “512M”</li>
+<li>找不到stdlib.h，參考:<a href="https://bugreports.qt.io/browse/QTBUG-53367">https://bugreports.qt.io/browse/QTBUG-53367</a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;opt&#x2F;ext-toolchain&#x2F;arm-buildroot-linux-gnueabihf&#x2F;include&#x2F;c++&#x2F;6.1.0&#x2F;cstdlib:75:25: fatal error: stdlib.h: No such file or directory</span><br><span class="line">#include_next &lt;stdlib.h&gt;</span><br><span class="line">                         ^</span><br><span class="line">compilation terminated.&quot;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Graphic</category>
+      </categories>
+      <tags>
+        <tag>QT</tag>
+        <tag>Raspberry Pi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hello Hexo</title>
+    <url>/2020/05/31/hello-hexo/</url>
+    <content><![CDATA[<p><strong>Create personal blog by power of Hexo + NEXT + Github</strong></p>
+<h4 id="Let’s-start-it"><a href="#Let’s-start-it" class="headerlink" title="Let’s start it"></a>Let’s start it</h4><a id="more"></a>
+<p>安裝hexo</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>建立blog資料夾</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init myblog</span><br><span class="line">cd myblog&#x2F;</span><br></pre></td></tr></table></figure>
+<p>依序安裝</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">npm install hexo-admin --save</span><br><span class="line">npm install hexo-symbols-count-time --save</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;theme-next-pjax themes&#x2F;next&#x2F;source&#x2F;lib&#x2F;pjax</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;theme-next-pace themes&#x2F;next&#x2F;source&#x2F;lib&#x2F;pace</span><br></pre></td></tr></table></figure>
+
+<p>啟動hexo：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo s</span><br><span class="line">...</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http:&#x2F;&#x2F;localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>確認：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.1.2:4000</span><br><span class="line">http:&#x2F;&#x2F;192.168.1.2:4000&#x2F;admin</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>theme-next</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+</search>
